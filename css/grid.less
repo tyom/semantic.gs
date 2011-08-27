@@ -3,7 +3,7 @@
 @gutter-width: 20;
 @columns: 12;
 
-// Utility variable — you should never need to modify this
+// Utility variable â you should never need to modify this
 @_gridsystem-width: (@column-width*@columns) + (@gutter-width*@columns) * 1px;
 
 // Set @total-width to 100% for a fluid layout
@@ -15,21 +15,43 @@
 //////////
 
 body {
-	width: 100%;
-	float: left;
+    width: 100%;
+    float: left;
 }
 
-.row(@columns:@columns) {
-	display: inline-block;
-	overflow: hidden;
-	width: @total-width*((@gutter-width + @_gridsystem-width)/@_gridsystem-width);
-	margin: 0 @total-width*(((@gutter-width*.5)/@_gridsystem-width)*-1);
+// @gutter  - column margin multiplier (0 for no margins)
+// @columns - container number of columns
+.row(@gutter: 1, @columns:@columns) {
+    display: inline-block;
+    width: @total-width*(((@gutter-width * @gutter) + @_gridsystem-width)/@_gridsystem-width);
+    margin: 0 @total-width*(((@gutter-width*.5)/@_gridsystem-width)*-1) * @gutter;
+    .clearfix();
 }
 
-.column(@x,@columns:@columns) {
-	display: inline;
-	float: left;
-	overflow: hidden;
-	width: @total-width*((((@gutter-width+@column-width)*@x)-@gutter-width) / @_gridsystem-width);
-	margin: 0 @total-width*((@gutter-width*.5)/@_gridsystem-width);
+// @x       - number of columns
+// @gutter  - column margin multiplier (0 for no margins)
+// @columns - container number of columns
+.column(@x, @gutter:1, @columns:@columns) {
+    display: inline;
+    float: left;
+    width: @total-width*((((@gutter-width+@column-width)*@x)-(@gutter-width * @gutter)) / @_gridsystem-width);
+    margin: 0 @total-width*((@gutter-width*.5)/@_gridsystem-width) * @gutter;
+    .clearfix();
+}
+
+.clearfix() {
+    &:after {
+        content: ".";
+        display: block;
+        clear: both;
+        visibility: hidden;
+        line-height: 0;
+        height: 0;
+    }
+    html[xmlns] .clearfix {
+        display: block;
+    }
+    * html .clearfix {
+        height: 1%;
+    }
 }
