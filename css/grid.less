@@ -24,7 +24,8 @@ body {
 .row(@gutter: 1, @columns:@columns) {
     display: inline-block;
     width: @total-width*(((@gutter-width * @gutter) + @_gridsystem-width)/@_gridsystem-width);
-    margin: 0 @total-width*(((@gutter-width*.5)/@_gridsystem-width)*-1) * @gutter;
+    margin-left: @total-width*(((@gutter-width*.5)/@_gridsystem-width)*-1) * @gutter;
+    margin-right: @total-width*(((@gutter-width*.5)/@_gridsystem-width)*-1) * @gutter;
     .clearfix();
 }
 
@@ -35,7 +36,8 @@ body {
     display: inline;
     float: left;
     width: @total-width*((((@gutter-width+@column-width)*@x)-(@gutter-width * @gutter)) / @_gridsystem-width);
-    margin: 0 @total-width*((@gutter-width*.5)/@_gridsystem-width) * @gutter;
+    margin-left: @total-width*((@gutter-width*.5)/@_gridsystem-width) * @gutter;
+    margin-right: @total-width*((@gutter-width*.5)/@_gridsystem-width) * @gutter;
     .clearfix();
 }
 
